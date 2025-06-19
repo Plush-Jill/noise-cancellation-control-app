@@ -1,2 +1,2 @@
 # noise-cencellation-control-app
-Приложение с графическим интерфейсом для управления режимами шумоподавления на bluetooth наушниках.
+### Application with GUI for control noise cancellation modes on bluetootn headphones.
