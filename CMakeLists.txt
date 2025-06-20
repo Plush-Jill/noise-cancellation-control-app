@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.30)
-project(NCC-App VERSION 0.0.1 LANGUAGES CXX)
+project(NCC-App VERSION 0.1.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 
@@ -20,12 +20,13 @@ find_package(Qt6 6.9 REQUIRED COMPONENTS
 qt_policy(SET QTP0001 NEW)
 qt_policy(SET QTP0004 NEW)
 
-#add_executable(NCC-App
-#        src/main.cpp
-#)
-
 qt_add_executable(NCC-App
         src/main.cpp
+        src/bluetooth-standard/abstract-standard.cpp
+        include/bluetooth-standard/abstract-standard.hpp
+        include/noise-cancalletion-modes.hpp
+        src/bluetooth-manager.cpp
+        include/bluetooth-manager.hpp
 )
 
 qt_add_qml_module(NCC-App

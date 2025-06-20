@@ -1,6 +1,7 @@
 #include <iostream>
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include "include/bluetooth-standard/abstract-standard.hpp"
 
 int main(int argc, char** argv) {
     const QGuiApplication app {argc, argv};
