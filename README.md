@@ -1,4 +1,4 @@
-# noise-cencellation-control-app
+# noise-cancellation-control-app
 ### Application with GUI for control noise cancellation modes on bluetooth headphones.
 
 ## Development in progress...
