@@ -6,9 +6,9 @@
 #define NOISE_CANCALLETION_MODES_HPP
 
 enum class NoiseCancellationMode {
-    On = "On",
-    Off = "Off",
-    Ambient = "Ambient",
+    On,
+    Off,
+    Ambient,
 };
 
 

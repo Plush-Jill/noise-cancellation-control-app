@@ -15,6 +15,7 @@ find_package(Qt6 6.9 REQUIRED COMPONENTS
         Widgets
         Qml
         Quick
+        Bluetooth
 )
 
 qt_policy(SET QTP0001 NEW)
@@ -24,7 +25,7 @@ qt_add_executable(NCC-App
         src/main.cpp
         src/bluetooth-standard/abstract-standard.cpp
         include/bluetooth-standard/abstract-standard.hpp
-        include/noise-cancalletion-modes.hpp
+        include/noise-cancellation-modes.hpp
         src/bluetooth-manager.cpp
         include/bluetooth-manager.hpp
 )
@@ -42,4 +43,5 @@ target_link_libraries(NCC-App PRIVATE
         Qt6::Widgets
         Qt6::Qml
         Qt6::Quick
+        Qt6::Bluetooth
 )
