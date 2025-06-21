@@ -19,6 +19,7 @@ BluetoothManager::BluetoothManager() {
         qWarning("Bluetooth device is not valid.");
     } else {
         m_local_bluetooth_device_.powerOn();
+        qDebug() << "Bluetooth device is valid and powered on.\nMAC Address:" << m_local_bluetooth_device_.address().toString();
     }
     connect(
         &m_device_discovery_agent_,
