@@ -7,7 +7,7 @@
 #include <QtBluetooth/QtBluetooth>
 
 
-class BluetoothManager : public QObject {
+class BluetoothManager final : public QObject {
     Q_OBJECT
 
 private:

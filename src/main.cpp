@@ -14,5 +14,5 @@ int main(int argc, char** argv) {
     }
     BluetoothManager bluetooth_manager {};
 
-    return app.exec();
+    return QGuiApplication::exec();
 }

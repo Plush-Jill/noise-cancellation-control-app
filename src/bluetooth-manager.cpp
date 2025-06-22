@@ -15,6 +15,11 @@ bool BluetoothManager::isDeviceConnected(const QBluetoothDeviceInfo &device) con
 }
 
 BluetoothManager::BluetoothManager() {
+    QBluetoothPermission bluetooth_permission {};
+    qDebug() << "Bluetooth communication modes: " << bluetooth_permission.communicationModes();
+    m_local_bluetooth_device_.setHostMode(QBluetoothLocalDevice::HostDiscoverable);
+
+
     if (!m_local_bluetooth_device_.isValid()) {
         qWarning("Bluetooth device is not valid.");
     } else {
