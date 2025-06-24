@@ -8,6 +8,12 @@ RoundButton {
     property string label: ""
     property bool isSelected: false
 
+    property real hoverScale: 1.02
+    property real pressScale: 0.98
+    property real targetScale: 1.0
+
+
+    scale: targetScale
     width: 80
     height: 80
     text: label
@@ -31,10 +37,26 @@ RoundButton {
         }
     }
 
-    // Hover effect
-    scale: hovered ? 1.05 : 1.0
-    Behavior on scale {
-        NumberAnimation { duration: 150 }
+    function updateScale() {
+        if (pressed) {
+            targetScale = pressScale
+        } else if (hovered) {
+            targetScale = hoverScale
+        } else {
+            targetScale = 1.0
+        }
     }
+
+    onHoveredChanged: updateScale()
+    onPressedChanged: updateScale()
+
+    Behavior on targetScale {
+        NumberAnimation { duration: 200; easing.type: Easing.OutCubic }
+    }
+    // Hover effect
+    // scale: hovered ? 1.05 : 1.0
+    // Behavior on scale {
+    //     NumberAnimation { duration: 150 }
+    // }
 }
 

@@ -56,6 +56,22 @@ Column {
             y: deviceCombo.height + 2
             width: deviceCombo.width
             padding: 4
+            opacity: visible? 1 : 0
+            scale: visible? 1 : 0.8
+            transformOrigin: Item.Top
+
+            Behavior on opacity {
+                NumberAnimation {
+                    duration: 50
+                    easing.type: Easing.InOutQuad
+                }
+            }
+            Behavior on scale {
+                NumberAnimation {
+                    duration: 50
+                    easing.type: Easing.InOutQuad
+                }
+            }
 
             background: Rectangle {
                 color: buttonBackgroundColor
@@ -69,6 +85,7 @@ Column {
                 implicitHeight: contentHeight
                 model: deviceCombo.popup.visible ? deviceCombo.delegateModel : null
             }
+
         }
 
         onCurrentTextChanged: deviceChanged(currentText)
