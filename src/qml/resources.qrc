@@ -1,6 +1,11 @@
     <!DOCTYPE RCC>
 <RCC version="1.0">
     <qresource prefix="/">
+        <file>old-main.qml</file>
         <file>main.qml</file>
+        <file>ModeButton.qml</file>
+        <file>NoiseCancellationModeMenu.qml</file>
+        <file>WindowControls.qml</file>
+        <file>DeviceSelector.qml</file>
     </qresource>
 </RCC>

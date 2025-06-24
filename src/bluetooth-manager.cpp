@@ -54,6 +54,14 @@ void BluetoothManager::findConnectedDevices() {
     m_device_discovery_agent_.start();
 }
 
+QStringList BluetoothManager::getConnectedDevices() const {
+    return m_connected_device_names_;
+}
+
+void BluetoothManager::setMode(QString device_name, NoiseCancellationMode::Mode mode) {
+
+}
+
 void BluetoothManager::onDeviceDiscovered(const QBluetoothDeviceInfo &info) {
     if (
         // info.minorDeviceClass() == QBluetoothDeviceInfo::MinorAudioVideoClass::Headphones

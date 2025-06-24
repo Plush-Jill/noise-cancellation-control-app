@@ -6,8 +6,10 @@
 #define BLUETOOTH_MANAGER_HPP
 #include <QtBluetooth/QtBluetooth>
 
+#include "noise-cancellation-mode.hpp"
 
-class BluetoothManager final : public QObject {
+
+class BluetoothManager : public QObject {
     Q_OBJECT
 
 private:
@@ -18,6 +20,7 @@ private:
     QBluetoothDeviceDiscoveryAgent m_device_discovery_agent_ {};
     QHash<QBluetoothAddress, QBluetoothDeviceInfo> m_discovered_devices_cache_;
     QList<QBluetoothDeviceInfo> m_connected_devices_;
+    QStringList m_connected_device_names_ {"Device 1", "Device 2", "Device 3"};
 
     /**
      * @brief List of discovered Bluetooth devices.
@@ -33,6 +36,9 @@ public:
     BluetoothManager();
     ~BluetoothManager() override = default;
     void findConnectedDevices();
+    Q_INVOKABLE [[nodiscard]] QStringList getConnectedDevices() const;
+    Q_INVOKABLE void setMode(QString device_name, NoiseCancellationMode::Mode mode);
+    // Q_ENUM(NoiseCancellationMode)
 
 public slots:
     /**

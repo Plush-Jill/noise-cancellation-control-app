@@ -4,7 +4,7 @@
 
 #ifndef ABSTRACT_STANDARD_HPP
 #define ABSTRACT_STANDARD_HPP
-#include "../noise-cancellation-modes.hpp"
+#include "../noise-cancellation-mode.hpp"
 #include <string>
 
 /**

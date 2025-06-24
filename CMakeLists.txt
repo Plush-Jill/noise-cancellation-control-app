@@ -25,7 +25,7 @@ qt_add_executable(NCC-App
         src/main.cpp
         src/bluetooth-standard/abstract-standard.cpp
         include/bluetooth-standard/abstract-standard.hpp
-        include/noise-cancellation-modes.hpp
+        include/noise-cancellation-mode.hpp
         src/bluetooth-manager.cpp
         include/bluetooth-manager.hpp
 )
@@ -33,7 +33,13 @@ qt_add_executable(NCC-App
 qt_add_qml_module(NCC-App
         URI NCC-App
         VERSION 1.0
-        QML_FILES src/qml/main.qml
+        QML_FILES
+        src/qml/old-main.qml
+        src/qml/main.qml
+            src/qml/ModeButton.qml
+            src/qml/NoiseCancellationModeMenu.qml
+            src/qml/WindowControls.qml
+            src/qml/DeviceSelector.qml
         OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/src/qml"
         RESOURCES src/qml/resources.qrc
 )

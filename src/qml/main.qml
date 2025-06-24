@@ -2,163 +2,147 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Window
+import QtQuick.Effects
 
 ApplicationWindow {
     id: window
     visible: true
     width: 400
-    height: 200
-    title: "Noise cancellation control"
+    height: 280
+    title: ""  // Пустой заголовок
     flags: Qt.Window | Qt.FramelessWindowHint
     color: "transparent"
 
-    component ButtonBackground: Rectangle {
-        anchors.fill: parent
-        color: "#8883d2"
-        radius: 24
-        border.color: "#5986ce"
-        border.width: 2
+    // Принудительно скрываем заголовок после показа окна
+    // onVisibilityChanged: {
+    //     if (visibility === Window.Windowed || visibility === Window.Maximized) {
+    //         flags = Qt.Window | Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint
+    //     }
+    // }
+
+    // Color theme
+    readonly property color backgroundColor: Qt.rgba(0.53, 0.53, 0.53, 0.85) // Semi-transparent
+    readonly property color borderColor: "#595959"
+    readonly property color buttonBackgroundColor: "#a8a8a8"
+    readonly property color buttonBorderColor: "#3f3f3f"
+    readonly property color buttonHighlightColor: "#e0e0e0"
+    readonly property color textColor: "#000000"
+    readonly property color closeButtonColor: "#ff5555"
+
+    readonly property color defaultDarkColor: "#000000"
+
+    // State management
+    property string selectedDevice: "Device 1"
+    property string noiseCancellationMode: "off" // "off", "on", "ambient"
+
+    // Дополнительная защита от появления заголовка
+    Component.onCompleted: {
+        window.flags = Qt.Window | Qt.FramelessWindowHint
+        window.title = ""
     }
-    // background: null
 
-    Rectangle {
+    // Отслеживаем изменения состояния окна
+    onActiveChanged: {
+        if (active) {
+            window.flags = Qt.Window | Qt.FramelessWindowHint
+            window.title = ""
+        }
+    }
+
+    Item {
+        id: rootContainer
         anchors.fill: parent
-        color: "#605d95"
-        radius: 24
-        border.color: "#4669a1"
-        border.width: 2
 
-
-        // Window drag area
-
-        MouseArea {
-            id: dragArea
+        // Background with blur effect
+        Rectangle {
+            id: blurBackground
             anchors.fill: parent
-            property real clickX
-            property real clickY
-            onPressed: function(mouse) {
-                clickX = mouse.x
-                clickY = mouse.y
+            anchors.margins: 1
+            color: backgroundColor
+            radius: 24
+            border.color: borderColor
+            border.width: 2
+
+            // Blur effect for the background
+            MultiEffect {
+                source: blurBackground
+                anchors.fill: blurBackground
+                // blurEnabled: true
+                // blurMax: 16
+                // blur: 1.5
+                opacity: 0.05
             }
-            onPositionChanged: function(mouse) {
-                if (mouse.buttons && Qt.LeftButton) {
-                    window.x += mouse.x - clickX
-                    window.y += mouse.y - clickY
+        }
+
+        // Main content
+        Rectangle {
+            id: contentBackground
+            anchors.fill: parent
+            anchors.margins: 1
+            color: Qt.rgba(backgroundColor.r, backgroundColor.g, backgroundColor.b, 0.7)
+            radius: 24
+            border.color: borderColor
+            border.width: 2
+
+            // Window controls
+            WindowControls {
+                id: windowControls
+                anchors.top: parent.top
+                anchors.right: parent.right
+                anchors.margins: 8
+                onCloseClicked: Qt.quit()
+                onMinimizeClicked: window.showMinimized()
+            }
+
+            // Drag area for window movement
+            MouseArea {
+                id: dragArea
+                anchors.fill: parent
+                anchors.topMargin: 40 // Avoid interference with window controls
+
+                property point clickPos: Qt.point(0, 0)
+
+                onPressed: function(mouse) {
+                    clickPos = Qt.point(mouse.x, mouse.y)
                 }
-            }
-            propagateComposedEvents: true
-        }
 
-        Button {
-            id: closeButton
-            text: "\u2715" // Unicode cross
-            font.pixelSize: 20
-            anchors.top: parent.top
-            anchors.right: parent.right
-            anchors.topMargin: 8
-            anchors.rightMargin: 8
-            background: Rectangle {
-                color: "transparent"
-                border.width: 0
-            }
-            onClicked: Qt.quit()
-        }
-        Button {
-            id: minimizeButton
-            text: "__"
-            font.pixelSize: 20
-            anchors.top: parent.top
-            anchors.right: closeButton.right
-            anchors.topMargin: 8
-            anchors.rightMargin: 32
-            background: Rectangle {
-                color: "transparent"
-                border.width: 0
-            }
-            onClicked: window.showMinimized()
-        }
-
-
-        Column {
-            anchors.centerIn: parent
-            spacing: 12
-
-            Text {
-                text: "Device Name"
-                font.pixelSize: 24
-                font.bold: true
-                horizontalAlignment: Text.AlignHCenter
-                anchors.horizontalCenter: parent.horizontalCenter
-            }
-            Text {
-                text: "Noise cancellation mode"
-                font.pixelSize: 16
-                horizontalAlignment: Text.AlignHCenter
-                anchors.horizontalCenter: parent.horizontalCenter
-            }
-
-            Row {
-                spacing: 48
-                anchors.horizontalCenter: parent.horizontalCenter
-
-                Column {
-                    spacing: 8
-                    RoundButton {
-                        width: 64
-                        height: 64
-                        text: "Off"
-                        background: ButtonBackground {}
-                        onClicked: {
-                            console.log("Noise cancellation off button clicked")
-                        }
-
-                    }
-                    Text {
-                        text: "Noise cancellation off"
-                        font.pixelSize: 12
-                        horizontalAlignment: Text.AlignHCenter
-                        width: parent.width
-                        wrapMode: Text.WordWrap
+                onPositionChanged: function(mouse) {
+                    if (pressed) {
+                        window.x += mouse.x - clickPos.x
+                        window.y += mouse.y - clickPos.y
                     }
                 }
 
-                Column {
-                    spacing: 8
-                    RoundButton {
-                        width: 64
-                        height: 64
-                        text: "On"
-                        background: ButtonBackground {}
-                        onClicked: {
-                            console.log("Noise cancellation on button clicked")
-                        }
-                    }
-                    Text {
-                        text: "Noise cancellation on"
-                        font.pixelSize: 12
-                        horizontalAlignment: Text.AlignHCenter
-                        width: parent.width
-                        wrapMode: Text.WordWrap
+                propagateComposedEvents: true
+            }
+
+            // Main content layout
+            ColumnLayout {
+                id: mainLayout
+                anchors.centerIn: parent
+                spacing: 20
+                width: parent.width - 40
+
+                // Device selector
+                DeviceSelector {
+                    id: deviceSelector
+                    textColor: defaultDarkColor
+                    Layout.alignment: Qt.AlignHCenter
+                    selectedDevice: window.selectedDevice
+                    onDeviceChanged: function(device) {
+                        window.selectedDevice = device
+                        console.log("Selected device:", device)
                     }
                 }
 
-                Column {
-                    spacing: 8
-                    RoundButton {
-                        width: 64
-                        height: 64
-                        text: "Ambient"
-                        background: ButtonBackground {}
-                        onClicked: {
-                            console.log("Ambient sound button clicked")
-                        }
-                    }
-                    Text {
-                        text: "Ambient sound"
-                        font.pixelSize: 12
-                        horizontalAlignment: Text.AlignHCenter
-                        width: parent.width
-                        wrapMode: Text.WordWrap
+                // Mode selector
+                NoiseCancellationModeMenu {
+                    id: modeSelector
+                    Layout.alignment: Qt.AlignHCenter
+                    currentMode: window.noiseCancellationMode
+                    onModeChanged: function(mode) {
+                        window.noiseCancellationMode = mode
+                        console.log("Noise cancellation mode:", mode)
                     }
                 }
             }
