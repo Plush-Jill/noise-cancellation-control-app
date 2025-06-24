@@ -21,18 +21,6 @@ RoundButton {
         border.color: isSelected ? "#4a90e2" : buttonBorderColor
         border.width: isSelected ? 3 : 2
 
-        // Selection indicator
-        Rectangle {
-            visible: isSelected
-            width: 12
-            height: 12
-            radius: 6
-            color: "#4a90e2"
-            anchors.bottom: parent.bottom
-            anchors.right: parent.right
-            anchors.margins: 8
-        }
-
         // Subtle animation
         Behavior on color {
             ColorAnimation { duration: 200 }

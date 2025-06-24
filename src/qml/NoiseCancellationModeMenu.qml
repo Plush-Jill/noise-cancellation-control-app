@@ -43,4 +43,11 @@ Column {
             onClicked: modeChanged("ambient")
         }
     }
+
+    // Connections {
+    //     target: BluetoothManager
+    //     function onModeChanged() {
+    //         BluetoothManager....
+    //     }
+    // }
 }

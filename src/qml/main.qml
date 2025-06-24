@@ -4,24 +4,26 @@ import QtQuick.Layouts 1.15
 import QtQuick.Window
 import QtQuick.Effects
 
-ApplicationWindow {
+Window {
     id: window
     visible: true
     width: 400
-    height: 280
-    title: ""  // Пустой заголовок
+    height: 220
+    title: ""
     flags: Qt.Window | Qt.FramelessWindowHint
     color: "transparent"
 
-    // Принудительно скрываем заголовок после показа окна
-    // onVisibilityChanged: {
-    //     if (visibility === Window.Windowed || visibility === Window.Maximized) {
-    //         flags = Qt.Window | Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint
-    //     }
-    // }
+    onVisibleChanged: {
+        if (visible) {
+            Qt.callLater(function() {
+                window.flags = Qt.Window | Qt.FramelessWindowHint
+            })
+        }
+    }
 
     // Color theme
-    readonly property color backgroundColor: Qt.rgba(0.53, 0.53, 0.53, 0.85) // Semi-transparent
+    readonly property color backgroundColor: Qt.rgba(0.53, 0.53, 0.53, 0.4) // Semi-transparent
+    // readonly property color backgroundColor: "transparent" // transparent
     readonly property color borderColor: "#595959"
     readonly property color buttonBackgroundColor: "#a8a8a8"
     readonly property color buttonBorderColor: "#3f3f3f"
@@ -35,19 +37,6 @@ ApplicationWindow {
     property string selectedDevice: "Device 1"
     property string noiseCancellationMode: "off" // "off", "on", "ambient"
 
-    // Дополнительная защита от появления заголовка
-    Component.onCompleted: {
-        window.flags = Qt.Window | Qt.FramelessWindowHint
-        window.title = ""
-    }
-
-    // Отслеживаем изменения состояния окна
-    onActiveChanged: {
-        if (active) {
-            window.flags = Qt.Window | Qt.FramelessWindowHint
-            window.title = ""
-        }
-    }
 
     Item {
         id: rootContainer
@@ -67,9 +56,9 @@ ApplicationWindow {
             MultiEffect {
                 source: blurBackground
                 anchors.fill: blurBackground
-                // blurEnabled: true
-                // blurMax: 16
-                // blur: 1.5
+                blurEnabled: true
+                blurMax: 16
+                blur: 1.5
                 opacity: 0.05
             }
         }
@@ -79,7 +68,8 @@ ApplicationWindow {
             id: contentBackground
             anchors.fill: parent
             anchors.margins: 1
-            color: Qt.rgba(backgroundColor.r, backgroundColor.g, backgroundColor.b, 0.7)
+            // color: Qt.rgba(backgroundColor.r, backgroundColor.g, backgroundColor.b, 0.7)
+            color: "transparent"
             radius: 24
             border.color: borderColor
             border.width: 2
