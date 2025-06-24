@@ -5,9 +5,12 @@ import QtQuick.Controls
 Row {
     id: windowControls
     spacing: 8
+
+    readonly property color closeButtonHoveredColor: "#ff5555"
+
     signal closeClicked()
     signal minimizeClicked()
-    readonly property color buttonBorderColor: Qt.darker(backgroundColor, 1.5)
+
 
     RoundButton {
         id: minimizeButton
@@ -16,7 +19,7 @@ Row {
         width: 24
         height: 24
         background: Rectangle {
-            color: parent.hovered ? buttonHighlightColor : Qt.lighter(backgroundColor, 1.8)
+            color: parent.hovered ? buttonDefaultHighlightColor : subComponentBackgroundColorRGBA
 
             radius: 12
             border.color: buttonBorderColor
@@ -39,7 +42,7 @@ Row {
         height: 24
 
         background: Rectangle {
-            color: parent.hovered ? closeButtonColor : Qt.lighter(backgroundColor, 1.8)
+            color: parent.hovered ? closeButtonHoveredColor : subComponentBackgroundColorRGBA
             radius: 12
             border.color: buttonBorderColor
             border.width: parent.hovered ? 1 : 0

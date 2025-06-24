@@ -27,9 +27,14 @@ Window {
     readonly property color borderColor: "#595959"
     readonly property color buttonBackgroundColor: "#a8a8a8"
     readonly property color buttonBorderColor: "#3f3f3f"
-    readonly property color buttonHighlightColor: "#e0e0e0"
+    readonly property color buttonDefaultHighlightColor: "#e0e0e0"
     readonly property color textColor: "#000000"
-    readonly property color closeButtonColor: "#ff5555"
+    readonly property real subComponentBackgroundOpacity: 0.4
+    readonly property color subComponentBackgroundColorRGB: "#a8a8a8"
+    readonly property color subComponentBackgroundColorRGBA:
+        Qt.rgba(
+            subComponentBackgroundColorRGB.r, subComponentBackgroundColorRGB.g,
+            subComponentBackgroundColorRGB.b, subComponentBackgroundOpacity)
 
     readonly property color defaultDarkColor: "#000000"
 

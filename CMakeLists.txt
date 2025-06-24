@@ -30,6 +30,8 @@ qt_add_executable(NCC-App
         include/bluetooth-manager.hpp
 )
 
+#set_target_properties(NCC-App PROPERTIES WIN32_EXECUTABLE TRUE)
+
 qt_add_qml_module(NCC-App
         URI NCC-App
         VERSION 1.0
@@ -43,7 +45,7 @@ qt_add_qml_module(NCC-App
         OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/src/qml"
         RESOURCES src/qml/resources.qrc
 )
-
+set(app_icon_resource_windows "C:\\All_Random\\t.png")
 target_link_libraries(NCC-App PRIVATE
         Qt6::Core
         Qt6::Widgets

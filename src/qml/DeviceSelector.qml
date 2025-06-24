@@ -9,6 +9,7 @@ Column {
     property color textColor: "#000000"
     signal deviceChanged(string device)
 
+
     Text {
         text: "Audio Device"
         font.pixelSize: 14
@@ -27,7 +28,7 @@ Column {
         font.bold: true
 
         background: Rectangle {
-            color: buttonBackgroundColor
+            color: Qt.rgba(buttonBackgroundColor.r, buttonBackgroundColor.g, buttonBackgroundColor.b, subComponentBackgroundOpacity)
             radius: 8
             border.color: borderColor
             border.width: 1
@@ -47,7 +48,7 @@ Column {
             }
 
             background: Rectangle {
-                color: highlighted ? buttonHighlightColor : buttonBackgroundColor
+                color: highlighted ? buttonDefaultHighlightColor : buttonBackgroundColor
                 radius: 4
             }
         }

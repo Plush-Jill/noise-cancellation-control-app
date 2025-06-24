@@ -2,13 +2,16 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QIcon>
 
 #include "include/bluetooth-manager.hpp"
+#include "include/bluetooth-standard/abstract-standard.hpp"
 #include "include/bluetooth-standard/abstract-standard.hpp"
 
 int main(int argc, char** argv) {
     const QGuiApplication app {argc, argv};
-    QGuiApplication::setApplicationDisplayName("NCC App");
+    // QGuiApplication::setApplicationDisplayName("NCC App");
+    // QGuiApplication::setWindowIcon(QIcon("qrc:/APP_ICON"));
     // 1. Регистрируем типы
     qmlRegisterUncreatableType<NoiseCancellationMode>("NCMode", 1, 0, "NoiseCancellationMode", "Enum only");
 
@@ -20,7 +23,7 @@ int main(int argc, char** argv) {
     engine.rootContext()->setContextProperty("BluetoothManager", &bluetooth_manager);
 
     // 4. Загружаем QML ПОСЛЕ установки контекстных свойств
-    engine.load(QUrl {"qrc:/main.qml"});
+    engine.load(QUrl {"qrc:/MAIN"});
     if (engine.rootObjects().isEmpty()) {
         return -1;
     }
