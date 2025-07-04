@@ -3,7 +3,6 @@ project(NCC-App VERSION 0.1.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 
-set(CMAKE_PREFIX_PATH "/home/plush-jill/All_Random/Qt/6.9.0/gcc_64/lib/cmake")
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -30,7 +29,7 @@ qt_add_executable(NCC-App
         include/bluetooth-manager.hpp
 )
 
-#set_target_properties(NCC-App PROPERTIES WIN32_EXECUTABLE TRUE)
+set_target_properties(NCC-App PROPERTIES WIN32_EXECUTABLE TRUE)
 
 qt_add_qml_module(NCC-App
         URI NCC-App
@@ -45,7 +44,7 @@ qt_add_qml_module(NCC-App
         OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/src/qml"
         RESOURCES src/qml/resources.qrc
 )
-set(app_icon_resource_windows "C:\\All_Random\\t.png")
+
 target_link_libraries(NCC-App PRIVATE
         Qt6::Core
         Qt6::Widgets
